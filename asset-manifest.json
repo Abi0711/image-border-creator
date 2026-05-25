@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.e0e6641e.css",
-    "main.js": "/static/js/main.56571170.js",
-    "static/js/453.7f4d227e.chunk.js": "/static/js/453.7f4d227e.chunk.js",
-    "index.html": "/index.html",
-    "main.e0e6641e.css.map": "/static/css/main.e0e6641e.css.map",
-    "main.56571170.js.map": "/static/js/main.56571170.js.map",
-    "453.7f4d227e.chunk.js.map": "/static/js/453.7f4d227e.chunk.js.map"
+    "main.css": "/sticker-border-studio/static/css/main.e0e6641e.css",
+    "main.js": "/sticker-border-studio/static/js/main.a43d9da8.js",
+    "static/js/453.7f4d227e.chunk.js": "/sticker-border-studio/static/js/453.7f4d227e.chunk.js",
+    "index.html": "/sticker-border-studio/index.html",
+    "main.e0e6641e.css.map": "/sticker-border-studio/static/css/main.e0e6641e.css.map",
+    "main.a43d9da8.js.map": "/sticker-border-studio/static/js/main.a43d9da8.js.map",
+    "453.7f4d227e.chunk.js.map": "/sticker-border-studio/static/js/453.7f4d227e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e0e6641e.css",
-    "static/js/main.56571170.js"
+    "static/js/main.a43d9da8.js"
   ]
 }
