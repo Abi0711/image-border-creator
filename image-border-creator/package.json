@@ -1,7 +1,7 @@
 {
   "name": "image-border-creator",
   "version": "0.1.0",
-  "homepage": "https://Abi0711.github.io",
+  "homepage": "https://Abi0711.github.io/sticker-border-studio",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.1",
