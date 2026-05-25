@@ -1,12 +1,12 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import FileReaderDropzone from './components/FileReaderDropzone';
+import ImageBorderCreator from './components/ImageBorderCreator';
 
 function App() {
   return (
     <div className="App">
-      <FileReaderDropzone/>
+      {/* <FileReaderDropzone/> */}
+      <ImageBorderCreator/>
     </div>
   );
 }
