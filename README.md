@@ -4,11 +4,11 @@ Upload a PNG image for the easy creation of a border around the uploaded image. 
 
 [Available here!](https://abi0711.github.io/sticker-border-studio/)
 
-![alt text](/images/main_page.png)
+![Main page](/images/main_page.png)
 
 Supports uploading and editing multiple files.
 
-![alt text](/images/multiple_files.png)
+![Multiple Files Example](/images/multiple_files.png)
 
 Inspiration behind creating this is due to Cricut adding a paywall to its create border feature.
 
@@ -27,7 +27,7 @@ Drag and drop files or click anywhere in the dotted border box to access the fil
 
 Choose the border thickness using the slider or input box. Choose the desired border colour. by clicking inside the coloured box next to <strong>Border Colour:</strong>
 
-### 4. Download Image
+### 4. Download Image(s)
 
 Choose to either download the current image you are working on
 
