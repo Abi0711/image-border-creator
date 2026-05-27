@@ -1,26 +1,21 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './style.css'
 
-function ImageBorderCreator() {
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
-  const [borderWidth, setBorderWidth] = useState<number>(50);
-  const [borderColor, setBorderColor] = useState<string>('#ffffff');
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+interface ImageBorderCreatorProps{
+    Files: string[] | undefined;
+}
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setImageSrc(URL.createObjectURL(file));
-    }
-  };
-
-  useEffect(() => {
-    if (!imageSrc) return;
-
+function drawSticker(
+  file: string, 
+  canvasRef: HTMLCanvasElement, 
+  borderWidth: number, 
+  borderColor: string,
+  callback?: () => void
+){
     const img = new Image();
-    img.src = imageSrc;
+    img.src = file;
     img.onload = () => {
-      const canvas = canvasRef.current;
+      const canvas = canvasRef;
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
@@ -61,10 +56,37 @@ function ImageBorderCreator() {
         }
       }
 
-      //draw original image normally
+      //draws original image
       ctx.drawImage(img, x, y);
+      // once image has completed rendering, download
+    if (callback) callback();
     };
-  }, [imageSrc, borderWidth, borderColor]); //when user input changes uploasded file or border width or colour, execute function
+}
+
+function ImageBorderCreator({Files}:ImageBorderCreatorProps) {
+  const [borderWidth, setBorderWidth] = useState<number>(0);
+  const [borderColor, setBorderColor] = useState<string>('#ffffff');
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+
+  const moveLeft = () => {
+    if (!Files || Files.length === 0) return;
+    setCurrentIndex((prevIndex)=> prevIndex === 0 ? 0 : prevIndex - 1);
+  }
+
+  const moveRight = () => {
+    if (!Files || Files.length === 0) return;
+    setCurrentIndex((prevIndex)=> prevIndex === Files.length - 1 ? Files.length - 1 : prevIndex + 1);
+  }
+
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [Files]);
+
+  useEffect(() => {
+    if (!Files || Files.length === 0 || !canvasRef.current) return;
+    drawSticker(Files[currentIndex], canvasRef.current, borderWidth, borderColor);
+  }, [Files, currentIndex, borderWidth, borderColor]); //when user input changes uploasded file or border width or colour, execute function
 
   const downloadSticker = () => {
     const canvas = canvasRef.current;
@@ -76,25 +98,56 @@ function ImageBorderCreator() {
     link.click();
   };
 
+  const downloadAllStickers = () => {
+    if(!Files || Files.length === 0) return;
+    Files.forEach((fileUrl, index) =>{
+        const tempCanvas = document.createElement('canvas');
+        drawSticker(fileUrl, tempCanvas, borderWidth, borderColor, () => {
+        // Download once the image has been rendered
+        const link = document.createElement('a');
+        link.download = `sticker-${index + 1}.png`;
+        link.href = tempCanvas.toDataURL('image/png');
+        link.click();
+      });
+    });
+  };
+
   return (
     <div className='border-creator'>
-      <h1>Sticker Border Generator</h1>
-      <input type="file" accept="image/png" onChange={handleFileChange} />
+      <h2>Sticker Border Editor</h2>
+      
       {/* && is JS conditional parameter. so if there is an image then return right side
       else just return null (which is ignored when rendering) */}
-      {imageSrc && (
+      {Files && (
         <div className='border-display-container'>
           <div className='options-container'>
+            {Files.length > 1 && (
+              <div className="carousel-controls">
+                
+                {currentIndex > 0 &&
+                <button onClick={moveLeft}>◀ Prev</button>
+                }
+                <span className='image-carousel-span'>Image {currentIndex + 1} of {Files.length}</span>
+                {currentIndex < Files.length - 1 &&
+                    <button onClick={moveRight}>Next ▶</button>
+                }
+                
+              </div>
+            )}
+
             <label className='border-thickness'>
               Border Thickess: 
-              <input type="range" min="0" max="100" value={borderWidth} onChange={(e) => setBorderWidth(Number(e.target.value))} />
-              <input type="number" min="0" max="100" value={borderWidth} onChange={(e) => setBorderWidth(Number(e.target.value))} />
+              <input type="number" min="0" max="200" value={borderWidth} onChange={(e) => setBorderWidth(Number(e.target.value))} />
+              <input type="range" min="0" max="200" value={borderWidth} onChange={(e) => setBorderWidth(Number(e.target.value))} />
             </label>
             <label className='border-colour-label'>
               Border Color: 
               <input type="color" value={borderColor} onChange={(e) => setBorderColor(e.target.value)} />
             </label>
             <button className='download-button' onClick={downloadSticker}>Download PNG</button>
+            {Files.length > 1 &&
+                <button className='download-button' onClick={downloadAllStickers}>Apply border to all images and download</button>
+            }
           </div>
           
           <div className='canvas-container'>

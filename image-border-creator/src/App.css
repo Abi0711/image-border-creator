@@ -1,5 +1,9 @@
 .App {
   text-align: center;
+  background-color: #1a1a1a;
+  color: #fff;
+  padding-top: 1px; /* 👈 Locks the margin inside the container */
+  min-height: 100vh;
 }
 
 .App-logo {

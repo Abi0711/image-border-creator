@@ -32,9 +32,6 @@ input::-webkit-inner-spin-button {
 
 .border-creator{
     padding: 20px;
-    background-color: #1a1a1a;
-    color: #fff;
-    min-height: 100vh;
 }
 
 .border-display-container{
@@ -56,4 +53,20 @@ input::-webkit-inner-spin-button {
 
 .canvas-img{
     max-width: 100%;
+}
+
+.dropzone-container{
+    margin: 20px 0;
+    padding: 20px;
+    border: 2px dashed #444;
+    border-radius: 8px;
+}
+.image-carousel-span{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.carousel-controls{
+    margin-bottom: 15px;
+    align-items: center;
+    gap: 10px;
 }

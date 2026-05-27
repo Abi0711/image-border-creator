@@ -1,12 +1,15 @@
+import { useState } from 'react';
 import './App.css';
-import FileReaderDropzone from './components/FileReaderDropzone';
+import FileUploaderDropzone from './components/FileUploaderDropzone'
 import ImageBorderCreator from './components/ImageBorderCreator';
 
 function App() {
+  const [Files, setFiles] = useState<string[] | undefined>([]);
   return (
     <div className="App">
-      {/* <FileReaderDropzone/> */}
-      <ImageBorderCreator/>
+      <h1>Stick Border Creator</h1>
+      <FileUploaderDropzone onImageUpload={setFiles}/>
+      <ImageBorderCreator Files={Files}/>
     </div>
   );
 }
