@@ -9,7 +9,10 @@ function App() {
     <div className="App">
       <h1>Stick Border Creator</h1>
       <FileUploaderDropzone onImageUpload={setFiles}/>
-      <ImageBorderCreator Files={Files}/>
+      
+      {Files && Files.length > 0 && (<ImageBorderCreator Files={Files}/>)
+      }
+      
     </div>
   );
 }
